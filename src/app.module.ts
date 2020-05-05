@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { APP_PIPE } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { ImoveisModule } from './imoveis/imoveis.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -13,7 +14,8 @@ import configuration from './config/configuration';
     ConfigModule.forRoot(),
     MongooseModule.forRoot(configuration().databaseUrl),    
     AuthModule,
-    UsersModule],
+    UsersModule,
+    ImoveisModule],
   controllers: [AppController],
   providers: [
     AppService,
