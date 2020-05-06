@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-userDto';
 import { UpdateUserDto } from './dto/update-userDto';
 import { CostumeNotFoundException } from 'src/exceptions/notfound.exception';
@@ -7,6 +7,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './interfaces/user.interface';
 import {hashSync} from 'bcrypt';
 import { ResponseUserDto } from './dto/response-userDto';
+import { randomBytes } from 'crypto';
+import { CostumeBadRequestException } from 'src/exceptions/babRequest.execption';
+import { ResetPasswordDto } from './dto/resetPassword-userDto';
 
 @Injectable()
 export class UsersService {
@@ -22,12 +25,13 @@ export class UsersService {
   }
 
   async findAll(): Promise<User[]>{
-    const list = await this.userModel.find().select('_id username email isActive createdAt').exec();        
+    const list = await this.userModel.find().exec();
+      //.select('_id username email isActive createdAt').exec();        
     return list as User[];
   }
 
   async findOne(id: string): Promise<User> {
-    const usuario = this.userModel.findOne({_id:id}).select('_id username email isActive createdAt').exec();    
+    const usuario = this.userModel.findOne({_id:id}).exec();    
     if (!(await usuario)) {
       throw new CostumeNotFoundException("Usuário não encontrado.")
     }
@@ -60,4 +64,37 @@ export class UsersService {
     return result.nModified;
   }
 
+  async forgotPassword(email: string){        
+    const usuario = await this.userModel.findOne({ email: email }).exec();
+    if(!(await usuario)){
+      throw new CostumeNotFoundException("Email não cadastrado.")
+    }
+    const token = randomBytes(20).toString('hex');
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 30);
+    const result = await this.userModel.updateOne({email: email}, {tokenPasswordReset: token, expiresPasswordReset: now});
+    //enviar email com o tokem
+    return { n : result.nModified, token: token, _id: usuario._id};
+  }
+
+  async resetPassword(resetPasswordDto :ResetPasswordDto){       
+    const usuario = await this.userModel.findOne({ _id: resetPasswordDto._id }).exec();
+    const now = new Date();
+    if(!usuario)
+      throw new CostumeNotFoundException("Usuário não exite.");
+    
+    if(!(await usuario.tokenPasswordReset == resetPasswordDto.token))
+      throw new CostumeBadRequestException("Token inválido.");
+    
+    if(now > usuario.expiresPasswordReset)
+      throw new CostumeBadRequestException("Token Expirado.");
+    
+    const hash = hashSync(resetPasswordDto.password, 10);      
+    const result = await this.userModel.updateOne({_id: resetPasswordDto._id}, {tokenPasswordReset: "", password: hash});    
+    if(result.n>0){      
+      return 'Senha alterada com sucesso.';
+    }else{
+      return 'Erro ao atualizar senha.';
+    }
+  }
 }

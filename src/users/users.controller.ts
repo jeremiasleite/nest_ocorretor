@@ -7,6 +7,8 @@ import { User } from './interfaces/user.interface';
 import { ResponseUserDto } from './dto/response-userDto';
 import { MongoErrorExceptionFilter } from 'src/exceptions/filter.ts/mongoError-exceptions.filter';
 import { CastErrorExceptionFilter } from 'src/exceptions/filter.ts/castError-exceptions.filter';
+import { ForgotPasswordUserDto } from './dto/forgotPassword-userDto';
+import { ResetPasswordDto } from './dto/resetPassword-userDto';
 
 @Controller('users')
 export class UsersController {
@@ -14,8 +16,8 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) { }
 
     @Get()
-    @UseGuards(JwtAuthGuard)    
-    async findAll(): Promise<User[]>{
+    //@UseGuards(JwtAuthGuard)    
+    async findAll(): Promise<User[]>{        
         return await this.usersService.findAll();
     }
 
@@ -46,6 +48,16 @@ export class UsersController {
     @UseFilters(new CastErrorExceptionFilter)
     async remove(@Param('id') id: string){
         return this.usersService.remove(id)
+    }
+
+    @Post('forgot_password')
+    async forgotPassword(@Body() data: ForgotPasswordUserDto){
+        return this.usersService.forgotPassword(data.email);
+    }
+
+    @Post('reset_password')
+    async resetPassword(@Body() resetPasswordDto: ResetPasswordDto){
+        return this.usersService.resetPassword(resetPasswordDto);
     }
 
 }
