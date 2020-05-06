@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Post, Body, Param, Delete, Put, ClassSerializerInterceptor, UseInterceptors, UseFilters} from '@nestjs/common';
+import { Controller, Get, UseGuards, Post, Body, Param, Delete, Put, ClassSerializerInterceptor, UseInterceptors, UseFilters, HttpCode, HttpStatus} from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-userDto';
@@ -51,11 +51,13 @@ export class UsersController {
     }
 
     @Post('forgot_password')
+    @HttpCode(HttpStatus.OK)
     async forgotPassword(@Body() data: ForgotPasswordUserDto){
         return this.usersService.forgotPassword(data.email);
     }
 
     @Post('reset_password')
+    @HttpCode(HttpStatus.OK)
     async resetPassword(@Body() resetPasswordDto: ResetPasswordDto){
         return this.usersService.resetPassword(resetPasswordDto);
     }
