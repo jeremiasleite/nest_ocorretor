@@ -1,21 +1,25 @@
-import { IsNotEmpty, IsEmail, IsOptional, IsBoolean, IsString } from "class-validator";
+import { IsNotEmpty, IsEmail, IsString } from "class-validator";
 
-export class UpdateUserDto{
+export class UpdateUserDto {
 
     @IsString()
     @IsNotEmpty()
     readonly _id: string;
 
     @IsEmail()
-    @IsOptional()
-    readonly email?: string;
+    @IsNotEmpty()
+    readonly email: string;
 
     @IsNotEmpty()
-    @IsOptional()
-    readonly username?: string;
-
     @IsNotEmpty()
+    readonly username: string;
+
+    /*@IsNotEmpty()
     @IsOptional()
     @IsBoolean()
-    readonly isActive?: boolean;
+    readonly isActive?: boolean;*/
+
+    constructor(partial: Partial<UpdateUserDto>) {
+        Object.assign(this, partial);
+    }
 }
