@@ -23,13 +23,17 @@ export interface Imovel extends Document{
     areaTotal: number
     itens: [string] //Churrasqueira,Espaço gourmet, Jardim, Piscina, Salão de festas, Salão de jogos, Lavanderia, Estacionamento, 
     destaque: string
-    condominio: string
-    iptu: string
+    condominio: number
+    iptu: number
     createdAt: Date
 };
 
-interface UrlImagens{
-    id: string
+class UrlImagens{
+    _id?: string
     url: string
     rotulo: string
+
+    constructor(partial: Partial<UrlImagens>) {
+        Object.assign(this, partial);
+    }
 }

@@ -1,19 +1,17 @@
 import * as mongoose from 'mongoose';
 
 export const ImovelSchema = new mongoose.Schema({
-    titulo: {
-        type: String,
+    titulo: String,
+    descricao: String,
+    tipo: { 
+        type:Number,
+        enum: [1,2,3]//1 = Casa, 2 = apartamento, 3 = imovelcomecial, 4 = terreno
+    },    
+    condicaoImovel:{
+        type: Number, 
+        enum: [1,2,3,4]// 1=comprar, 2=alugar 3 =  imóveis novos , pode der renomeado para transação
     },
-    descricao: {
-        type: String,
-    },
-    tipo: {//1 = Casa, 2 = apartamento, 3 = imovelcomecial, 4 = terreno
-        type: Number,
-    },
-    condicaoImovel: Number, // 1=comprar, 2=alugar 3 =  imóveis novos , pode der renomeado para transação
-    valor: {
-        type: String
-    },
+    valor: Number,
     endBairro: String,
     endRua: String,
     endRumero: String,
@@ -34,8 +32,8 @@ export const ImovelSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },    
-    condominio: String,
-    iptu: String,
+    condominio: Number,
+    iptu: Number,
     createdAt: {
         type: Date,
         default: Date.now
