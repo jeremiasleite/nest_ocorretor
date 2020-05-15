@@ -19,7 +19,11 @@ export const ImovelSchema = new mongoose.Schema({
     endEstado: String,
     endCep: String,
     endComplemento: String,    
-    situacao: {type: Number, default: 0},//0-disponivel, 1-vendido, 2-alugado
+    situacao: {
+        type: Number,
+        enum: [1, 2, 3],//1-disponivel, 2-vendido, 3-alugado
+        default: 0
+    },
     numGaragem: Number,
     numQuarto: Number,
     numBanheiro: Number,

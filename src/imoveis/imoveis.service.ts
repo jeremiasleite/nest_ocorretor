@@ -4,6 +4,7 @@ import { Model, Types } from 'mongoose';
 import { Imovel } from './interface/imovel.interface';
 import { CreateImovelDto } from './dto/create-imovelDto';
 import { ImputImageImovelDto } from './dto/addImage-imovelDto';
+import { UpdateImovelDto } from './dto/update-imovelDto';
 
 @Injectable()
 export class ImoveisService {
@@ -36,6 +37,26 @@ export class ImoveisService {
       return imovel;
     } catch (e) {
       throw new BadRequestException(e);
+    }
+  }
+
+  async update(imovelUpdate: UpdateImovelDto): Promise<boolean>{    
+    await this.findOne(imovelUpdate._id);
+    try {
+      const result = await this.imovelModel.update({ _id: imovelUpdate._id }, imovelUpdate);
+      return await result.nModified==1 ? true: false;
+    } catch (e) {
+      throw new ForbiddenException(e);
+    }
+  }
+
+  async updateSituacao(idImovel: string, situacao: number): Promise<boolean>{    
+    await this.findOne(idImovel);
+    try {
+      const result = await this.imovelModel.update({ _id: idImovel }, {situacao: situacao});
+      return await result.nModified==1 ? true: false;
+    } catch (e) {
+      throw new ForbiddenException(e);
     }
   }
 

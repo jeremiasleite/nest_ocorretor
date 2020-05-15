@@ -3,6 +3,9 @@ import { Imovel } from './interface/imovel.interface';
 import { ImoveisService } from './imoveis.service';
 import { CreateImovelDto } from './dto/create-imovelDto';
 import { ImputImageImovelDto } from './dto/addImage-imovelDto';
+import { UpdateImovelDto } from './dto/update-imovelDto';
+import { IdImovelDto } from './dto/inputuId-imovelDto';
+import { InputSituacaoImovelDto } from './dto/situacao-imovelDto';
 
 @Controller('imoveis')
 export class ImoveisController {
@@ -24,17 +27,20 @@ export class ImoveisController {
         return this.imoveisService.create(createImovelDto);
     }
 
-
-
     @Post(':idImovel/add_imagem')
     async addImage(@Param('idImovel') idImovel: string, @Body() image: ImputImageImovelDto) {
         return this.imoveisService.addImage(idImovel, image);
     }
 
-    /*@Put()
-    async atualizar(@Body() updateImovelDto: UpdateImovelDto): Promise<Imovel> {
-        return null;
-    }*/
+    @Put()
+    async atualizar(@Body() updateImovelDto: UpdateImovelDto): Promise<boolean> {
+        return this.imoveisService.update(updateImovelDto);
+    }
+
+    @Put('atualizar_situacao')
+    async atualizarSituacao(@Body() situacaoDto: InputSituacaoImovelDto): Promise<boolean> {        
+        return this.imoveisService.updateSituacao(situacaoDto.id, situacaoDto.situacao);
+    }
 
     @Put(':idImovel/atualizar_imagem/:idImage')
     async atualizarImage(
