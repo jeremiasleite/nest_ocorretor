@@ -28,12 +28,8 @@ export interface Imovel extends Document{
     createdAt: Date
 };
 
-class UrlImagens{
+interface UrlImagens{
     _id?: string
     url: string
     rotulo: string
-
-    constructor(partial: Partial<UrlImagens>) {
-        Object.assign(this, partial);
-    }
 }

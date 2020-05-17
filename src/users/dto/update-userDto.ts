@@ -12,14 +12,9 @@ export class UpdateUserDto {
 
     @IsNotEmpty()
     @IsNotEmpty()
-    readonly username: string;
+    readonly username: string;    
 
-    /*@IsNotEmpty()
-    @IsOptional()
-    @IsBoolean()
-    readonly isActive?: boolean;*/
-
-    constructor(partial: Partial<UpdateUserDto>) {
+    /*constructor(partial: Partial<UpdateUserDto>) {
         Object.assign(this, partial);
-    }
+    }*/
 }
