@@ -8,17 +8,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { ImoveisModule } from './imoveis/imoveis.module';
 import configuration from './config/configuration';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(configuration().databaseUrl),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
-      exclude: ['/api*'],
-    }),   
+    MongooseModule.forRoot(configuration().databaseUrl),       
     AuthModule,
     UsersModule,
     ImoveisModule],
