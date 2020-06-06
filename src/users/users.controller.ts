@@ -6,6 +6,9 @@ import { UpdateUserDto } from './dto/update-userDto';
 import { ResponseUserDto } from './dto/response-userDto';
 import { ForgotPasswordUserDto } from './dto/forgotPassword-userDto';
 import { ResetPasswordDto } from './dto/resetPassword-userDto';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
 

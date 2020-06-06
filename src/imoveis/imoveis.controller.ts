@@ -6,7 +6,8 @@ import { ImputImageImovelDto } from './dto/addImage-imovelDto';
 import { UpdateImovelDto } from './dto/update-imovelDto';
 import { InputSituacaoImovelDto } from './dto/situacao-imovelDto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('imoveis')
 @Controller('imoveis')
 export class ImoveisController {
 
