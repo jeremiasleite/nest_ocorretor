@@ -5,14 +5,14 @@ export interface Imovel extends Document{
     descricao: string
     tipo: number
     condicaoImovel: number // 1=comprar, 2=alugar 3 =  imóveis novos , pode der renomeado para transação
-    valor: number
+    valor: string
     endBairro: string
     endRua: string
     endRumero: string
     endCidade: string
     endEstado: string
     endCep: string
-    endComplemento: string    
+    endComplemento: string
     situacao: number//0-disponivel, 1-vendido, 2-alugado
     numGaragem: number
     numQuarto: number
@@ -21,10 +21,10 @@ export interface Imovel extends Document{
     urlImagens: [UrlImagens],
     area: number,
     areaTotal: number
-    itens: [string] //Churrasqueira,Espaço gourmet, Jardim, Piscina, Salão de festas, Salão de jogos, Lavanderia, Estacionamento, 
+    itens: [string] //Churrasqueira,Espaço gourmet, Jardim, Piscina, Salão de festas, Salão de jogos, Lavanderia, Estacionamento,
     destaque: string
-    condominio: number
-    iptu: number
+    condominio: string
+    iptu: string
     createdAt: Date
 };
 

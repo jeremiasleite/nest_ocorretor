@@ -39,9 +39,8 @@ export class UpdateImovelDto {
     condicaoImovel: CondicaoImovel;//transação
 
     @ApiProperty()
-    @IsNumber()
-    @IsNotEmpty()
-    valor: number;
+    @IsString()
+    valor: string;
 
     @ApiProperty()
     @IsString()
@@ -76,8 +75,8 @@ export class UpdateImovelDto {
     endEstado: string;
 
     @ApiProperty()
-    @Length(8, 8)
-    @IsNumberString()
+    @Length(8, 9)
+    @IsString()
     endCep: string;
 
     @ApiProperty()
@@ -120,14 +119,12 @@ export class UpdateImovelDto {
     areaTotal: number;
 
     @ApiProperty()
-    @IsNumber()
-    @IsPositive()
-    condominio: number;
+    @IsString()
+    condominio: string;
 
     @ApiProperty()
-    @IsNumber()
-    @IsPositive()
-    iptu: number;
+    @IsString()
+    iptu: string;
 
     constructor(partial: Partial<UpdateImovelDto>) {
         Object.assign(this, partial);
