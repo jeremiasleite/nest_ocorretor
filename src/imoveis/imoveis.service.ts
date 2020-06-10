@@ -26,7 +26,7 @@ export class ImoveisService {
     }catch(e){
       throw new ForbiddenException('Erro ao tentar listar imóveis.');
     }
-    
+
   }
 
   async findOne(id: string): Promise<Imovel> {
@@ -40,17 +40,17 @@ export class ImoveisService {
     }
   }
 
-  async update(imovelUpdate: UpdateImovelDto): Promise<boolean>{    
-    await this.findOne(imovelUpdate._id);
+  async update(id: string, imovelUpdate: UpdateImovelDto): Promise<boolean>{
+    await this.findOne(id);
     try {
-      const result = await this.imovelModel.update({ _id: imovelUpdate._id }, imovelUpdate);
+      const result = await this.imovelModel.update({ _id: id }, imovelUpdate);
       return await result.nModified==1 ? true: false;
     } catch (e) {
       throw new ForbiddenException(e);
     }
   }
 
-  async updateSituacao(idImovel: string, situacao: number): Promise<boolean>{    
+  async updateSituacao(idImovel: string, situacao: number): Promise<boolean>{
     await this.findOne(idImovel);
     try {
       const result = await this.imovelModel.update({ _id: idImovel }, {situacao: situacao});
@@ -71,7 +71,7 @@ export class ImoveisService {
       return true;
     }catch(e){
       throw new BadRequestException(e);
-    }    
+    }
   }
 
   async removeImage(idImovel: string, idImage: string): Promise<boolean> {
@@ -86,7 +86,7 @@ export class ImoveisService {
     }catch(e){
       throw new BadRequestException(e);
     }
-    
+
   }
 
   async updateImage(idImovel: string, idImage: string,image: ImputImageImovelDto): Promise<boolean> {
@@ -100,7 +100,7 @@ export class ImoveisService {
       return true;
     }catch(e){
       throw new BadRequestException(e);
-    }    
+    }
   }
 
 
