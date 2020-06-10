@@ -35,7 +35,7 @@ export class ImoveisController {
         return this.imoveisService.addImage(idImovel, image);
     }
 
-    @Put('id')
+    @Put(':id')
     //@UseGuards(JwtAuthGuard)
     async atualizar(@Param('id') id: string, @Body() updateImovelDto: UpdateImovelDto): Promise<boolean> {
         return this.imoveisService.update(id, updateImovelDto);
