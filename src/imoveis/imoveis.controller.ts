@@ -17,47 +17,47 @@ export class ImoveisController {
     async findAll(): Promise<Imovel[]> {
         return await this.imoveisService.findAll();
     }
-    
+
     @Get(':id')
     async findOne(@Param('id') id: string): Promise<Imovel> {
         return this.imoveisService.findOne(id);
     }
 
     @Post()
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     async create(@Body() createImovelDto: CreateImovelDto): Promise<Imovel> {
         return this.imoveisService.create(createImovelDto);
     }
 
     @Post(':idImovel/add_imagem')
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     async addImage(@Param('idImovel') idImovel: string, @Body() image: ImputImageImovelDto) {
         return this.imoveisService.addImage(idImovel, image);
     }
 
     @Put()
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     async atualizar(@Body() updateImovelDto: UpdateImovelDto): Promise<boolean> {
         return this.imoveisService.update(updateImovelDto);
     }
 
     @Put('atualizar_situacao')
-    @UseGuards(JwtAuthGuard)
-    async atualizarSituacao(@Body() situacaoDto: InputSituacaoImovelDto): Promise<boolean> {        
+    //@UseGuards(JwtAuthGuard)
+    async atualizarSituacao(@Body() situacaoDto: InputSituacaoImovelDto): Promise<boolean> {
         return this.imoveisService.updateSituacao(situacaoDto.id, situacaoDto.situacao);
     }
 
     @Put(':idImovel/atualizar_imagem/:idImage')
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     async atualizarImage(
-        @Param('idImovel') idImovel: string, 
-        @Param('idImage') idImage: string, 
+        @Param('idImovel') idImovel: string,
+        @Param('idImage') idImage: string,
         @Body() image: ImputImageImovelDto) {
         return this.imoveisService.updateImage(idImovel, idImage, image);
     }
-    
+
     @Delete(':idImovel/remove_imagem/:idImage')
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     async removeImage(@Param('idImovel') idImovel: string, @Param('idImage') idImage: string) {
         return this.imoveisService.removeImage(idImovel, idImage);
     }

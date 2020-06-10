@@ -15,23 +15,23 @@ enum TipoImovel {
 }
 
 export class UpdateImovelDto {
-    
+
     @ApiProperty()
-    @IsMongoId()    
+    @IsMongoId()
     _id: string;
 
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
     @Length(5, 30)
-    titulo: string;    
-    
+    titulo: string;
+
     @ApiProperty()
     @IsInt()
-    @Min(1) 
+    @Min(1)
     @Max(4)
     tipo: TipoImovel;
-    
+
     @ApiProperty()
     @IsInt()
     @Min(1)
@@ -63,8 +63,13 @@ export class UpdateImovelDto {
     @ApiProperty()
     @IsString()
     @Length(2, 255)
+    endBairro: string;
+
+    @ApiProperty()
+    @IsString()
+    @Length(2, 255)
     endCidade: string;
-    
+
     @ApiProperty()
     @Length(2, 2)
     @IsAlpha()
@@ -83,15 +88,15 @@ export class UpdateImovelDto {
     @ApiProperty()
     @IsInt()
     @Max(30)
-    @Min(0)    
+    @Min(0)
     numGaragem: number;
-    
+
     @ApiProperty()
     @IsInt()
     @Max(30)
     @Min(0)
     numQuarto: number;
-    
+
     @ApiProperty()
     @IsInt()
     @Max(30)
@@ -103,7 +108,7 @@ export class UpdateImovelDto {
     @Max(30)
     @Min(0)
     numSuites: number;
-    
+
     @ApiProperty()
     @IsNumber()
     @IsPositive()
@@ -118,12 +123,12 @@ export class UpdateImovelDto {
     @IsNumber()
     @IsPositive()
     condominio: number;
-    
+
     @ApiProperty()
     @IsNumber()
     @IsPositive()
     iptu: number;
-    
+
     constructor(partial: Partial<UpdateImovelDto>) {
         Object.assign(this, partial);
     }
